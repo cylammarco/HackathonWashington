@@ -1,0 +1,15 @@
+FROM node:latest
+LABEL maintainer="MCL <c.y.lam@ljmu.ac.uk>"
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+RUN mkdir -p /var/www
+
+COPY web_content/package.json $WORKDIR
+ENV NODE_PATH="/usr/src/app/node_modules"
+RUN bash -c "npm install"
+
+EXPOSE 14000
+CMD ["npm", "start"]
+

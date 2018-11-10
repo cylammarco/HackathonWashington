@@ -1,0 +1,34 @@
+version: "3"
+services:
+  supervisor:
+    container_name: supervisor_container_dchackathon
+    build:
+      context: ./
+      dockerfile: Dockerfile.supervisor-ubuntu
+    stdin_open: true
+    tty: true
+    networks:
+      dchackathon_net:
+        ipv4_address: 135.0.0.10
+
+  node:
+    container_name: webserver_container_dchackathon
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.webserver
+    ports:
+      - "14000:14000"
+    volumes:
+      - ./web_content:/var/www
+    networks:
+      dchackathon_net:
+        ipv4_address: 135.0.0.11
+
+networks:
+  dchackathon_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 135.0.0.0/24
