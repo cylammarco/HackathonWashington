@@ -1,10 +1,23 @@
-FROM node:latest
+FROM ubuntu:18.04
 LABEL maintainer="MCL <c.y.lam@ljmu.ac.uk>"
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 RUN mkdir -p /var/www
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_11.x
+RUN apt-get install -y nodejs npm
+
+RUN apt-get update && apt-get install -y python3-pip
+RUN apt-get update && apt-get install -y sextractor
+
+RUN pip3 install numpy
+RUN pip3 install matplotlib
 
 COPY web_content/package.json $WORKDIR
 ENV NODE_PATH="/usr/src/app/node_modules"

@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 Dropzone.autoDiscover = false;
 
-const myDropzone = new Dropzone("#my-awesome-dropzone", { autoProcessQueue: false });
+const myDropzone = new Dropzone("#my-awesome-dropzone", { autoProcessQueue: false, maxFiles: 200 });
 
 const $button = document.getElementById('submit-files');
 $button.addEventListener('click', function () {
@@ -19,6 +19,7 @@ $button.addEventListener('click', function () {
   const acceptedFiles = myDropzone.getAcceptedFiles();
   for (let i = 0; i < acceptedFiles.length; i++) {
     myDropzone.processFile(acceptedFiles[i]);
+    //console.log(acceptedFiles[i]);
   }
 })
 
